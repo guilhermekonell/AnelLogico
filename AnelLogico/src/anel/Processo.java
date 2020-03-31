@@ -5,6 +5,9 @@ public class Processo {
 	private final int ID;
 	private boolean coordenador;
 
+	/*
+	 * Classe que representa o processo.
+	 */
 	public Processo(int ID, boolean coordenador) {
 		super();
 		this.ID = ID;
@@ -23,6 +26,10 @@ public class Processo {
 		this.coordenador = isCoordenador;
 	}
 
+	/*
+	 * Método responsável por fazer uma requisiçao ao coordenador para verificar se
+	 * esta ativo.
+	 */
 	public boolean realizarRequisicao() {
 		for (Processo p : Util.processos) {
 			if (p.isCoordenador()) {

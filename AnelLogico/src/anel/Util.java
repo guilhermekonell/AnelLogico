@@ -8,6 +8,9 @@ public class Util {
 	public static ArrayList<Processo> processos;
 	public static Object lock;
 
+	/*
+	 * Método responsável por criar um processo na lista de processos.
+	 */
 	public static void criaProcesso(int TEMPO_CRIACAO) {
 		processos = new ArrayList<Processo>();
 		lock = new Object();
@@ -36,6 +39,10 @@ public class Util {
 		}).start();
 	}
 
+	/*
+	 * Método responsável por disparar uma requisiçao com um processo aleatório ao
+	 * coordenador. Se o coordenador não responder, é iniciado uma nova eleiçao.
+	 */
 	public static void realizaRequisicao(int TEMPO_REQUISICAO) {
 		new Thread(() -> {
 			while (true) {
@@ -59,6 +66,9 @@ public class Util {
 		}).start();
 	}
 
+	/*
+	 * Método responsável por realizar a eleiçao de um novo coordenador.
+	 */
 	private static void realizaEleicao() {
 		Processo novoCoordenador = null;
 		int ID = 0;
@@ -72,6 +82,9 @@ public class Util {
 		Logger.log("[Processo " + novoCoordenador.getID() + "] É o novo coordenador");
 	}
 
+	/*
+	 * Método responsável por inativar o coordenador.
+	 */
 	public static void inativaCoordenador(int TEMPO_COORDENADOR_INATIVADO) {
 		new Thread(() -> {
 			while (true) {
@@ -94,6 +107,9 @@ public class Util {
 		}).start();
 	}
 
+	/*
+	 * Método responsável por inativar um processo aleatório.
+	 */
 	public static void inativaProcesso(int TEMPO_PROCESSO_INATIVADO) {
 		new Thread(() -> {
 			while (true) {
