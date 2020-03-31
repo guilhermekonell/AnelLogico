@@ -2,10 +2,10 @@ package anel;
 
 /*
  * Especificação:
- * 	▪ a cada 30segundos um novo processo deve ser criado
- * 	▪ a cada 25segundos um processo fazer uma requisiçãopara o coordenador
+ * 	▪ a cada 30 segundos um novo processo deve ser criado
+ * 	▪ a cada 25 segundos um processo faz uma requisição para o coordenador
  * 	▪ a cada 100 segundos o coordenador fica inativo
- * 	▪ a cada 80 segundos um processo da lista de processos fica inativo 
+ * 	▪ a cada 80 segundos um processo fica inativo 
  * 	▪ dois processos não podem ter o mesmo ID
  * 	▪ dois processos de eleição não podem acontecer simultaneamente
  */

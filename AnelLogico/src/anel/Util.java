@@ -6,10 +6,11 @@ import java.util.Random;
 public class Util {
 
 	public static ArrayList<Processo> processos;
-	public static Object lock = new Object();
+	public static Object lock;
 
 	public static void criaProcesso(int TEMPO_CRIACAO) {
 		processos = new ArrayList<Processo>();
+		lock = new Object();
 
 		new Thread(() -> {
 			while (true) {
@@ -51,34 +52,24 @@ public class Util {
 					boolean existeCoordenador = p.realizarRequisicao();
 
 					if (!existeCoordenador) {
-						realizaEleicao(p);
+						realizaEleicao();
 					}
 				}
 			}
 		}).start();
 	}
 
-	private static void realizaEleicao(Processo p) {
-		// Logger.log("[INFO] Eleiçao iniciada!");
-
-		int IDNovoCoordenador = p.getID();
+	private static void realizaEleicao() {
+		Processo novoCoordenador = null;
+		int ID = 0;
 		for (Processo processo : processos) {
-			if (processo.getID() > IDNovoCoordenador) {
-				IDNovoCoordenador = processo.getID();
+			if (processo.getID() > ID) {
+				novoCoordenador = processo;
 			}
 		}
 
-		// seta o coordenador e garante que nenhum outro também seja o coordenador
-		for (Processo processo : processos) {
-			if (processo.getID() == IDNovoCoordenador) {
-				processo.setCoordenador(true);
-				Logger.log("[Processo " + p.getID() + "] É o novo coordenador");
-			} else {
-				processo.setCoordenador(false);
-			}
-		}
-
-		// Logger.log("[INFO] Eleiçao terminada!");
+		novoCoordenador.setCoordenador(true);
+		Logger.log("[Processo " + novoCoordenador.getID() + "] É o novo coordenador");
 	}
 
 	public static void inativaCoordenador(int TEMPO_COORDENADOR_INATIVADO) {
@@ -95,8 +86,8 @@ public class Util {
 						if (p.isCoordenador()) {
 							processos.remove(p);
 							Logger.log("[Processo " + p.getID() + "] Coordenador inativado");
+							break;
 						}
-						break;
 					}
 				}
 			}
