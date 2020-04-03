@@ -7,6 +7,7 @@ public class Util {
 
 	public static ArrayList<Processo> processos;
 	public static Object lock;
+	public static int ID = 0;
 
 	/*
 	 * Método responsável por criar um processo na lista de processos.
@@ -18,13 +19,7 @@ public class Util {
 		new Thread(() -> {
 			while (true) {
 				synchronized (lock) {
-					int ID;
-					if (processos.isEmpty()) {
-						ID = 1;
-					} else {
-						ID = processos.size() + 1;
-					}
-
+					ID++;
 					processos.add(new Processo(ID, false));
 
 					Logger.log("[Processo " + ID + "] Processo criado");
